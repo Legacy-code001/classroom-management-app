@@ -3,6 +3,9 @@ import { ListResponse } from "@/types";
 import { createDataProvider, CreateDataProviderOptions } from "@refinedev/rest";
 
 
+if(!BACKEND_BASE_URL)
+    throw new Error('BACKEND_BASE_URL is not configured please set VITE_BACKEND_BASE_URL in your .env file')
+
 const options: CreateDataProviderOptions = {
     getList: {
         getEndpoint: ({ resource }) => resource,
@@ -17,23 +20,24 @@ const options: CreateDataProviderOptions = {
             filters?.forEach((filter) => {
                const field =  'field' in filter  ? filter.field : '';
 
+               if(filter.value == null || filter.value == '' ) return;
                 const value = String(filter.value);
 
                 if(resource === 'subjects') {
                     if(field === 'department') params.department = value;
-                    if(field === 'name' || field === 'code' || field === 'description' ) params.search = value;
+                    if(field === 'name' || field === 'code' ) params.search = value;
                 }
             })
             return params;
         },
         
         mapResponse: async (response) => {
-            const payload: ListResponse = await response.json();
+            const payload: ListResponse = await response.clone().json();
 
             return payload.data ?? [];
         },
         getTotalCount: async (response) => {
-            const payload: ListResponse = await response.json();
+            const payload: ListResponse = await response.clone().json();
             return payload.pagination?.total ?? payload.data?.length ?? 0
 
             

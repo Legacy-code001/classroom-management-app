@@ -13,13 +13,13 @@ import { Badge } from "@/components/ui/badge";
 import { useMemo, useState } from "react";
 
 const SubjectList = () => {
-    const [searchQuary, setSearchQuary] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectDepartment, setSelectDepartment] = useState("all");
     const departmentFilter = selectDepartment === 'all'? [] : [
         {field: 'department', operator: 'eq' as const, value: selectDepartment }
     ];
-    const searchFilter = searchQuary ? [
-        {field: 'name', operator: 'contains' as const, value: searchQuary }]  : []
+    const searchFilter = searchQuery ? [
+        {field: 'name', operator: 'contains' as const, value: searchQuery }]  : []
     ;
     const subjectTable = useTable<Subject>(
         {
@@ -52,7 +52,7 @@ const SubjectList = () => {
                     size: 300,
                     header: () => <p className="column-title ml-2">Description</p>,
                     cell: ({getValue}) => <span className="truncate line-clamp-2">{getValue<string>()}</span>,
-                    filterfn: 'includestring'
+                    filterFn: 'includesString'
                 },
 
             ], []),
@@ -86,8 +86,8 @@ const SubjectList = () => {
                          type="text"
                          placeholder="search by name"
                          className="pl-10 w-full" 
-                         value={searchQuary}
-                         onChange={(e) => setSearchQuary(e.target.value)}/>
+                         value={searchQuery}
+                         onChange={(e) => setSearchQuery(e.target.value)}/>
                     </div>
 
                     <div className="flex w-full sm:w-auto gap-2">
