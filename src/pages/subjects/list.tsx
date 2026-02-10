@@ -5,25 +5,25 @@ import { ListView } from "@/components/refine-ui/views/list-view"
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DEPARTMENT_OPTION } from "@/constants";
-import { subject } from "@/types";
+import { Subject } from "@/types";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
-import { Badge, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { useMemo, useState } from "react";
-import { Subjects } from "react-hook-form";
 
 const SubjectList = () => {
-    const [searchQuary, setSearchQuary] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectDepartment, setSelectDepartment] = useState("all");
     const departmentFilter = selectDepartment === 'all'? [] : [
         {field: 'department', operator: 'eq' as const, value: selectDepartment }
     ];
-    const searchFilter = searchQuary ? [
-        {field: 'name', operator: 'contains' as const, value: searchQuary }]  : []
+    const searchFilter = searchQuery ? [
+        {field: 'name', operator: 'contains' as const, value: searchQuery }]  : []
     ;
-    const subjectTable = useTable<subject>(
+    const subjectTable = useTable<Subject>(
         {
-            columns: useMemo<ColumnDef<subject>[]>(() => [
+            columns: useMemo<ColumnDef<Subject>[]>(() => [
                 {
                     id: 'code', 
                     accessorKey: 'code',
@@ -40,19 +40,19 @@ const SubjectList = () => {
                     filterfn: 'string'
                 },
                 {
-                    id: 'department', 
-                    accessorKey: 'department',
+                    id: 'department',
+                    accessorKey: 'department.name',
                     size: 150,
                     header: () => <p className="column-title ml-2">Department</p>,
-                    cell: ({getValue}) => <Badge fontVariant="secondary" >{getValue<string>()}</Badge>
+                    cell: ({getValue}) => <Badge variant="secondary" >{getValue<string>()}</Badge>
                 },
                 {
                     id: 'description', 
-                    accessorKey: 'deescription',
+                    accessorKey: 'description',
                     size: 300,
                     header: () => <p className="column-title ml-2">Description</p>,
                     cell: ({getValue}) => <span className="truncate line-clamp-2">{getValue<string>()}</span>,
-                    filterfn: 'includestring  '
+                    filterFn: 'includesString'
                 },
 
             ], []),
@@ -86,8 +86,8 @@ const SubjectList = () => {
                          type="text"
                          placeholder="search by name"
                          className="pl-10 w-full" 
-                         value={searchQuary}
-                         onChange={(e) => setSearchQuary(e.target.value)}/>
+                         value={searchQuery}
+                         onChange={(e) => setSearchQuery(e.target.value)}/>
                     </div>
 
                     <div className="flex w-full sm:w-auto gap-2">
