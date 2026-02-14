@@ -10,10 +10,10 @@ const SubjectCreate = () => {
             <CreateView className="class-view">
                 <Breadcrumb/>
     
-                <h1 className="title-page">Create a Class</h1>
+                <h1 className="title-page">Create a Subject</h1>
                 <div className="intro-row">
                     <p>provide the required info bellow to add a class</p>
-                    <button className="" onClick={() => back}>Go Back</button>
+                    <button className="" onClick={() => back()}>Go Back</button>
                 </div>
     
     

@@ -25,8 +25,8 @@ const UploadWidget = ({value = null, onChange, disabled = false}) => {
     }, [value])
 
     useEffect(() => {
-        onChangeRef.current = onchange;
-    }, [onchange])
+        onChangeRef.current = onChange;
+    }, [onChange])
 
     useEffect(() => {
         if(typeof window === 'undefined') return;
@@ -73,7 +73,7 @@ const UploadWidget = ({value = null, onChange, disabled = false}) => {
                     <img src={preview.url} alt="uploaded file" />
                 </div> :
                  <div className="upload-dropzone" role="button" tabIndex={0} onClick={openWidget} onKeyDown={(event) => {
-                    if(event.key = "Enter"){
+                    if(event.key === "Enter"){
                         event.preventDefault();
                         openWidget()
                     }
