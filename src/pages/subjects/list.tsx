@@ -4,13 +4,13 @@ import { Breadcrumb } from "@/components/refine-ui/layout/breadcrumb";
 import { ListView } from "@/components/refine-ui/views/list-view"
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DEPARTMENT_OPTION } from "@/constants";
 import { Subject } from "@/types";
 import { useTable } from "@refinedev/react-table";
 import { ColumnDef } from "@tanstack/react-table";
 import { Search } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useMemo, useState } from "react";
+import { DEPARTMENT_OPTIONS } from "@/constants";
 
 const SubjectList = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -103,7 +103,7 @@ const SubjectList = () => {
                                 <SelectItem value="all">
                                     All Department
                                 </SelectItem>
-                                {DEPARTMENT_OPTION.map((department) => (
+                                {DEPARTMENT_OPTIONS.map((department) => (
                                     <SelectItem 
                                     key={department.value}
                                     value={department.value}>
