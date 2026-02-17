@@ -77,7 +77,7 @@ const ClassCreate = () => {
 
     const bannerPublicId = form.watch("bannerCldPubId");
 
-    const setBannerImage = (file, field) => {
+const setBannerImage = (file, field) => {
         if(file){
             field.onChange(file.url);
             form.setValue('bannerCldPubId',  file.publicId, {
